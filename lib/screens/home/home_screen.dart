@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../constants.dart';
+import '../../utiles/draweritem.dart';
 import 'components/body.dart';
 
 import '../profile/profile.dart';
@@ -27,7 +29,58 @@ class _HomeScreenState extends State<HomeScreen> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 251, 248, 248),
-        drawer: Drawer(),
+        drawer: Drawer(
+          child: ListView(
+              children: <Widget>[
+                DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: kPrimarycolor,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'الملف الشخصي ',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: kTextColor,
+                                fontSize: 20.0),
+                          ),
+                          SizedBox(height: 10.0),
+                          Text( ' ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: kTextColor,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                    ],
+                  ),
+                ),
+                DrawerItemss(
+                  color: kPrimarycolor,
+                  title: "عن التطبيق",
+                  myIcon: FontAwesomeIcons.info,
+                  onTap: () {},
+                ),
+                DrawerItemss(
+                  color: kPrimarycolor,
+                  title: "من نحن",
+                  myIcon: FontAwesomeIcons.peopleGroup,
+                  onTap: () {},
+                ),
+                
+                
+              ],
+            ),
+        ),
         body: Stack(
           clipBehavior: Clip.none,
           children: [

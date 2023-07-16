@@ -21,7 +21,7 @@ class AddToCart extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(right: kDefaultPaddin),
             height: 50,
-            width: 58,
+            width: MediaQuery.of(context).size.width * 0.8,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18),
               border: Border.all(
