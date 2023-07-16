@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: kPrimarycolor,
         textTheme: GoogleFonts.cairoTextTheme(),
-        // textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
         
       ),
       home: HomeScreen(),
