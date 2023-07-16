@@ -206,12 +206,14 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void add_item(ids, name, img, price, context) {
+  void add_item(ids, name, img, price,qty, context) {
     CartItem item = CartItem(
         id: ids.toString(),
         name: name.toString(),
-        price: price.toString(),
-        img: img.toString());
+        price: price,
+        img: img.toString(),
+        qty: qty
+        );
 
     for (int i = 0; i < cartitem.length; i++) {
       if (cartitem[i].id == item.id ) {
@@ -238,7 +240,7 @@ class AppProvider extends ChangeNotifier {
   int total_price() {
     int sum = 0;
     for (int i = 0; i < cartitem.length; i++) {
-      sum += int.parse(cartitem[i].price);
+      sum += cartitem[i].price;
     }
     return sum;
   }

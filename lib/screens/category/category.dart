@@ -7,8 +7,6 @@ import 'component/categorries.dart';
 import 'component/item_card.dart';
 
 class CategoryScreen extends StatelessWidget {
-  late final title;
-  CategoryScreen({required this.title});
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -22,16 +20,7 @@ class CategoryScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
-                child: Text(
-                  title,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall
-                      ?.copyWith(fontWeight: FontWeight.bold),
-                ),
-              ),
+
               Categories(),
               Expanded(
                 child: Padding(

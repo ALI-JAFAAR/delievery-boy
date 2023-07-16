@@ -1,3 +1,5 @@
+import 'package:google_fonts/google_fonts.dart';
+
 import '/provider/app.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
       title: 'سنتر الساعه',
       theme: ThemeData(
         primaryColor: kPrimarycolor,
+        textTheme: GoogleFonts.cairoTextTheme(),
         // textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
         
       ),

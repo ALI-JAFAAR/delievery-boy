@@ -29,7 +29,7 @@ class ProductTitleWithImage extends StatelessWidget {
                 .headlineMedium
                 ?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: kDefaultPaddin),
+          // SizedBox(height: kDefaultPaddin-20),
           Row(
             children: <Widget>[
               RichText(
@@ -37,9 +37,13 @@ class ProductTitleWithImage extends StatelessWidget {
                   children: [
                     TextSpan(text: "Price\n"),
                     TextSpan(
-                      text: "\$${product.price}",
-                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                      text: "${product.price}000 د.ع",
+                      style:
+                          Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                              ),
                     ),
                   ],
                 ),

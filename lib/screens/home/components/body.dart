@@ -14,7 +14,7 @@ class Body extends StatelessWidget {
           delegate: SliverChildListDelegate([
             Container(
               color: const Color.fromARGB(255, 249, 245, 245),
-              margin: EdgeInsets.only(top: 180),
+              margin: EdgeInsets.only(top: 190),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -43,9 +43,7 @@ class Body extends StatelessWidget {
               press: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CategoryScreen(
-                    title: products[index].title,
-                  ),
+                  builder: (context) => CategoryScreen(),
                 ),
               ),
             ),

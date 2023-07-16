@@ -16,32 +16,29 @@ class SliderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 210,
+      height: 200,
       width: MediaQuery.of(context).size.width,
       child: CarouselSlider.builder(
         itemCount: imgList.length,
         itemBuilder: (BuildContext context, int i, int pageViewIndex) =>
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: Image.network(
-              imgList[i],
-              width: MediaQuery.of(context).size.width,
-              fit: BoxFit.cover,
-            ),
-                  ),
+          ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Image.network(
+            imgList[i],
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.cover,
           ),
+                ),
         options: CarouselOptions(
           aspectRatio: 16 / 9,
-          viewportFraction: 0.99,
+          viewportFraction: 0.87,
           initialPage: 0,
           enableInfiniteScroll: true,
           autoPlay: true,
           pageSnapping: true,
           autoPlayInterval: Duration(seconds: 3),
           autoPlayAnimationDuration: Duration(milliseconds: 800),
-          autoPlayCurve: Curves.fastOutSlowIn,
+          autoPlayCurve: Curves.easeInOut,
           enlargeCenterPage: true,
           scrollDirection: Axis.horizontal,
         ),

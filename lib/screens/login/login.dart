@@ -25,9 +25,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
     final height = MediaQuery.of(context).size.height;
-    // ignore: unused_local_variable
     var user = Provider.of<AppProvider>(context);
     return Directionality(
       textDirection: TextDirection.rtl,
