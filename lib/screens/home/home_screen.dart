@@ -1,9 +1,7 @@
 import '/provider/app.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../../constants.dart';
-import '../../utiles/draweritem.dart';
 import '../cart/cart.dart';
 
 import '../profile/profile.dart';
@@ -33,51 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 251, 248, 248),
-        drawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: kPrimarycolor,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'سنتر الساعه',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: kTextColor,
-                            fontSize: 20.0,
-                            
-                          ),
-                          
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                  ],
-                ),
-              ),
-              DrawerItemss(
-                color: kPrimarycolor,
-                title: "عن التطبيق",
-                myIcon: FontAwesomeIcons.info,
-                onTap: () {},
-              ),
-              DrawerItemss(
-                color: kPrimarycolor,
-                title: "من نحن",
-                myIcon: FontAwesomeIcons.peopleGroup,
-                onTap: () {},
-              ),
-            ],
-          ),
-        ),
         body: screen[i],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: i,

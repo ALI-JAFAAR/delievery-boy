@@ -22,14 +22,27 @@ class MainScreen extends StatelessWidget {
         SizedBox(
           height: 150,
           child: AppBar(
-            elevation: 0,
+            elevation: 1,
             backgroundColor: Theme.of(context).primaryColor,
-            title: Text(
-              "سنتر الساعة",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            // leading: Container(
+            //   margin: EdgeInsets.only(right: 2),
+            //   child: 
+            // ),
+            title: Row(
+              children: [
+                
+                Text(
+                  "سنتر الساعه",
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
+                Image.asset(
+                'assets/images/title.png',
+                height: 50,
+                width: 60,
               ),
+              ],
             ),
             centerTitle: true,
             actions: <Widget>[
@@ -45,7 +58,7 @@ class MainScreen extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 110,
+          top: 120,
           left: 20,
           width: MediaQuery.of(context).size.width * 0.92,
           child: LocationCard(),

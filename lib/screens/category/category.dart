@@ -34,7 +34,7 @@ class CategoryScreen extends StatelessWidget {
                         crossAxisCount: 2,
                         mainAxisSpacing: kDefaultPaddin,
                         crossAxisSpacing: kDefaultPaddin,
-                        childAspectRatio: 0.75,
+                        childAspectRatio: 0.8,
                       ),
                       itemBuilder: (context, i) => ItemCard(
                             product: app.prods[i],
