@@ -1,5 +1,7 @@
+import '/provider/app.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../utiles/draweritem.dart';
 import '../cart/cart.dart';
@@ -24,6 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
   List screen = [MainScreen(), CartScreen(), ProfileScreen()];
   @override
   Widget build(BuildContext context) {
+    var app = Provider.of<AppProvider>(context);
+    app.slider();
+    app.category_all();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(

@@ -1,13 +1,14 @@
+import '/provider/app.dart';
+import 'package:provider/provider.dart';
 import '/screens/category/category.dart';
 import 'package:flutter/material.dart';
-// import '../../../constants.dart';
-import '../../../models/Product.dart';
 import 'slider.dart';
 import 'item_card.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var app = Provider.of<AppProvider>(context);
     return CustomScrollView(
       slivers: [
         SliverList(
@@ -33,21 +34,24 @@ class Body extends StatelessWidget {
         SliverGrid(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 30,
+              mainAxisSpacing: 0,
+              crossAxisSpacing: 20,
               childAspectRatio: 0.5,
               mainAxisExtent: 150),
           delegate: SliverChildBuilderDelegate(
-            (context, index) => ItemCard(
-              product: products[index],
-              press: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CategoryScreen(),
-                ),
-              ),
+            (context, i) => ItemCard(
+              product: app.catA[i],
+              press: () {
+                app.prod_by_cat(app.catA[i].id);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CategoryScreen(),
+                  ),
+                );
+              },
             ),
-            childCount: products.length,
+            childCount: app.catAcount,
           ),
         ),
       ],

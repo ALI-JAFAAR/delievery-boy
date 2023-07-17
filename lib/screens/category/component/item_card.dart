@@ -23,12 +23,12 @@ class ItemCard extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.all(kDefaultPaddin),
               decoration: BoxDecoration(
-                color: product.color,
+                // color: product.color,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Hero(
                 tag: "${product.id}",
-                child: Image.asset(product.image),
+                child: Image.network(product.img),
               ),
             ),
           ),
@@ -40,17 +40,17 @@ class ItemCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: kDefaultPaddin / 4),
                     child: Text(
-                      product.title,
+                      product.name,
                       style: TextStyle(color: kTextLightColor),
                     ),
                   ),
                   Text(
-                    "\$${product.price}",
+                    "${product.price} د.ع",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
-              Spacer(),
+              SizedBox(width: 10,),
               ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith((states) {

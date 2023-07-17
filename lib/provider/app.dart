@@ -8,6 +8,7 @@ import '../models/Product.dart';
 import '../models/cart.dart';
 import '../models/cat.dart';
 import '../models/cus.dart';
+import '../models/slider.dart';
 import '../screens/home/home_screen.dart';
 
 class AppProvider extends ChangeNotifier {
@@ -23,7 +24,32 @@ class AppProvider extends ChangeNotifier {
 
 
 
+  //################ Slider ##########
+  int slidercount = 0;
+  bool sliderwaiting = true;
+  var sliders;
+  slider() async {
+    if (sliderwaiting == false) {
+    } else {
+      final response = await api.getData('slider');
+      if (response.statusCode == 200) {
+        var datas = json.decode(response.body);
+        sliderwaiting = false;
+        if (datas["success"] == true) {
+          var slidesdata = sliderFromJson(response.body);
+          print(
+              "slides fethed successfully and count of them = ${slidesdata.data.length}");
+          slidercount = slidesdata.data.length;
+          
+          sliders = slidesdata.data;
 
+          notifyListeners();
+        } else {
+          print("error fitching  slides");
+        }
+      }
+    }
+  }
 
   int catAcount = 0;
   bool catAwaiting = true;
@@ -32,20 +58,16 @@ class AppProvider extends ChangeNotifier {
     if ( catAwaiting == false) {
     } else {
       catAwaiting = true;
-   
-
-      final response = await api.getData('cats-all');
+      final response = await api.getData('cats');
       print(response.statusCode);
       if (response.statusCode == 200) {
         var datas = json.decode(response.body);
         if (datas["success"] == true) {
-          var slidesdata = catFromJson(response.body);
-          print(
-              "CATS fethed successfully and count of them = ${slidesdata.data.length}");
-          catAcount = slidesdata.data.length;
+          var cat = categoryFromJson(response.body);
+          print("CATS fethed successfully and count of them = ${cat.data.length}");
+          catAcount = cat.data.length;
           catAwaiting = false;
-          catA = slidesdata.data;
-
+          catA = cat.data;
           notifyListeners();
         } else {
           print("error fitching  cats");
@@ -62,7 +84,8 @@ class AppProvider extends ChangeNotifier {
   bool prodwa = true;
   var prods;
 
-  prod_by_page(id) async {
+  prod_by_cat(id) async {
+    print('sdadjnoinio');
     if (page_id == id  ) {
     } else {
       prodwa = !prodwa;

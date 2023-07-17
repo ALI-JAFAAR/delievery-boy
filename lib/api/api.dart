@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class Api {
 
-  var api = 'https://offer.aj-sharp.com/public/api/';
+  var api = 'https://shopcenter.al-mawadda.com/api/';
   postData(data, apiUrl) async {
     var fullUrl = api + apiUrl;
     return await http.post(Uri.parse(fullUrl),

@@ -53,12 +53,22 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
-
+    signingConfigs {       
+        config {            
+           storeFile file('ali.jks')            
+           storePassword 'ALI098'            
+           keyAlias 'ALI098'            
+           keyPassword 'ALI098'        
+        }    
+    } 
     buildTypes {
+        debug {            
+           signingConfig signingConfigs.config        
+        } 
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.config
+            minifyEnabled true
+            shrinkResources true
         }
     }
 }

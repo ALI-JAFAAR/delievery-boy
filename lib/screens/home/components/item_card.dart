@@ -1,10 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../models/Product.dart';
-
 import '../../../constants.dart';
+import '../../../models/cat.dart';
 
 class ItemCard extends StatelessWidget {
-  final Product product;
+  final Cats product;
   final VoidCallback press;
   const ItemCard({
     Key? key,
@@ -19,24 +19,33 @@ class ItemCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.all(kDefaultPaddin),
-              decoration: BoxDecoration(
-                color: product.color,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Hero(
-                tag: "${product.id}",
-                child: Image.asset(product.image),
-              ),
+          Container(
+            // width: 110,
+            padding: EdgeInsets.all(kDefaultPaddin),
+            decoration: BoxDecoration(
+              // color: product.color,
+              borderRadius: BorderRadius.circular(5),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin / 4),
-            child: Text(
-              product.title,
-              style: TextStyle(color: kTextLightColor),
+            child: Column(
+              children: [
+                Hero(
+                  tag: "${product.id}",
+                  child: CachedNetworkImage(
+                    imageUrl: product.img,
+                    fit: BoxFit.fill,
+                    width: MediaQuery.of(context).size.width,
+                    placeholder: (context, url) => Image.asset(
+                      'assets/images/logo.png',
+                      fit: BoxFit.cover,
+                    ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
+                ),
+                Text(
+                  product.name,
+                  style: TextStyle(color: kTextLightColor),
+                ),
+              ],
             ),
           ),
         ],

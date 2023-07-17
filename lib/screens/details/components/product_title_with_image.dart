@@ -23,7 +23,7 @@ class ProductTitleWithImage extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           Text(
-            product.title,
+            product.name,
             style: Theme.of(context)
                 .textTheme
                 .headlineMedium
@@ -52,8 +52,8 @@ class ProductTitleWithImage extends StatelessWidget {
               Expanded(
                 child: Hero(
                   tag: "${product.id}",
-                  child: Image.asset(
-                    product.image,
+                  child: Image.network(
+                    product.img,
                     fit: BoxFit.fill,
                   ),
                 ),
