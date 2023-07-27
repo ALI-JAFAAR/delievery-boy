@@ -1,12 +1,28 @@
 import 'package:alamal_center/constants.dart';
 import 'package:alamal_center/provider/app.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../../utiles/iconbutton.dart';
 import '../checkout/checkout.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  late int qty;
+
+  @override
+  void initState() {
+    super.initState();
+    qty = 1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,88 +41,125 @@ class CartScreen extends StatelessWidget {
                 itemCount: store.cartitem.length,
                 itemBuilder: (context, i) {
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Stack(
-                      children: [
-                        Card(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width - 20,
-                            height: 100,
-                            child: Row(
+                    padding: const EdgeInsets.all(2),
+                    child: ClipRRect(
+                      child: Card(
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(4),
+                              child: Container(
+                                child: CachedNetworkImage(
+                                  imageUrl: store.cartitem[i].img,
+                                  fit: BoxFit.fill,
+                                  width: 115,
+                                  height: 110,
+                                  placeholder: (context, url) => Image.asset(
+                                    'assets/images/logo.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                ),
+                              ),
+                            ),
+                      
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                               
+                                Row(
                                   children: [
                                     Container(
-                                      width: 100,
-                                      height: 100,
-                                      padding: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(15),
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                            store.cartitem[i].img,
-                                          ),
-                                          fit: BoxFit.fill,
+                                      margin: EdgeInsets.only(left: 60),
+                                      child: Text(
+                                        store.cartitem[i].name,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
-                                const SizedBox(width: 10,),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                                Row(
                                   children: [
-                                    Text(
-                                      store.cartitem[i].name,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                      ),
+                                    Text(store.cartitem[i].price.toString()),
+                                    SizedBox(
+                                      width: 20,
                                     ),
-                                    Text(
-                                      (store.cartitem[i].price).toString(),
-                                      style: const TextStyle(
-                                        fontSize: 16,
+                                    Container(
+                                      width: 130,
+                                      height: 60,
+                                      child: Row(
+                                        children: [
+                                          IconsButton(
+                                            onTap: () {
+                                              if (store.cartitem[i].qty == 1)
+                                                store.remove_item(i);
+                                              else {
+                                                store.qty_update(
+                                                    i,
+                                                    store.cartitem[i].qty -
+                                                        1);
+                                              }
+                                            },
+                                            border: 50,
+                                            title: Icons.remove,
+                                            width: 0.12,
+                                            margen: 0,
+                                            hight: 40,
+                                            size: 25,
+                                            color: kPrimarycolor,
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            '${store.cartitem[i].qty}',
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          IconsButton(
+                                            onTap: () {
+                                              store.qty_update(i,store.cartitem[i].qty + 1);
+                                            },
+                                            border: 50,
+                                            title: Icons.add,
+                                            width: 0.12,
+                                            margen: 0,
+                                            hight: 40,
+                                            size: 25,
+                                            color: Colors.greenAccent,
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
                                 ),
+                                
                               ],
                             ),
-                          ),
-                        ),
-                        Positioned(
-                         
-                          child: IconButton(
-                            onPressed: () {
-                              store.remove_item(i);
-                            },
-                            icon: const Icon(
-                              Icons.close,
-                              color: Colors.red,
-                              size: 30,
+                            SizedBox(
+                              width: 30,
                             ),
-                          ),
-                        ),
-
-                        Positioned(
-                          bottom: 40,
-                          left: 30,
-                          child: Row(
-                            children: [
-                               Text(
-                                  store.cartitem[i].qty.toString(),
-                                  style: const TextStyle(
-                                    fontSize: 18,
+                            Column(
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    store.remove_item(i);
+                                  },
+                                  icon: Icon(
+                                    FontAwesomeIcons.trash,
                                   ),
                                 ),
-                             const Icon(Icons.close,size: 15,color: Colors.grey,),
-                            ],
-                          ),
-                        )
-                      ],
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   );
                 })),
@@ -115,7 +168,7 @@ class CartScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              height: 100,
+              height: 110,
               child: Row(
                 children: [
                   Padding(
@@ -126,15 +179,17 @@ class CartScreen extends StatelessWidget {
                         Column(
                           children: [
                             const Text(
-                              "Total Price",
+                              "السعر الكلي",
                               style: TextStyle(
                                 fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
                               "${store.total_price()}",
                               style: const TextStyle(
-                                fontSize: 16,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
@@ -142,6 +197,7 @@ class CartScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                  SizedBox(width: 40,),
                   InkResponse(
                     splashFactory: NoSplash.splashFactory,
                     onTap: () {
@@ -162,7 +218,7 @@ class CartScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const CheckOut(),
+                            builder: (context) => CheckOut(),
                           ),
                         );
                       }
@@ -170,15 +226,19 @@ class CartScreen extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.all(15),
                       height: 45,
-                      width: MediaQuery.of(context).size.width * 0.5,
+                      width: MediaQuery.of(context).size.width * 0.4,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: kPrimarycolor,
                       ),
                       child: const Center(
                           child: Text(
-                        'CheckOut',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                        'اتمام الطلب',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       )),
                     ),
                   ),

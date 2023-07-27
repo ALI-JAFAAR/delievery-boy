@@ -11,45 +11,49 @@ Customer customerFromJson(String str) => Customer.fromJson(json.decode(str));
 String customerToJson(Customer data) => json.encode(data.toJson());
 
 class Customer {
-    Customer({
-        required this.success,
-        required this.data,
-    });
+  Customer({
+    required this.success,
+    required this.data,
+  });
 
-    bool success;
-    Data data;
+  bool success;
+  Data data;
 
-    factory Customer.fromJson(Map<String, dynamic> json) => Customer(
+  factory Customer.fromJson(Map<String, dynamic> json) => Customer(
         success: json["success"],
-        data:  Data.fromJson(json["data"]),
-    );
+        data: Data.fromJson(json["data"]),
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "success": success,
-        "data":data.toJson(),
-    };
+        "data": data.toJson(),
+      };
 }
 
 class Data {
-    Data({
-        required this.name,
-        required this.phone,
-        required this.id,
-    });
+  Data({
+    required this.name,
+    required this.phone,
+    required this.address,
+    required this.id,
+  });
 
-    String? name;
-    String? phone;
-    int? id;
+  String? name;
+  String? phone;
+  String? address;
+  int? id;
 
-    factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
         name: json["name"],
-        phone:json["phone"],
-        id:json["id"],
-    );
+        phone: json["phone"],
+        address: json["address"],
+        id: json["id"],
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "name": name,
         "phone": phone,
-        "id":id,
-    };
+        "address": address,
+        "id": id,
+      };
 }

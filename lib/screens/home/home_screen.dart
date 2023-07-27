@@ -13,8 +13,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late int i;
 
+  late int i;
+  
   @override
   void initState() {
     super.initState();
@@ -27,10 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
     var app = Provider.of<AppProvider>(context);
     app.slider();
     app.category_all();
+    print("check login");
+    app.check_login(context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 251, 248, 248),
+        backgroundColor: Color.fromARGB(255, 247, 242, 242),
         body: screen[i],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: i,

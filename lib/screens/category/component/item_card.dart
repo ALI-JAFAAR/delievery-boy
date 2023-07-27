@@ -20,12 +20,17 @@ class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var app = Provider.of<AppProvider>(context);
+    var name;
+    if(product.name.length >17)
+      name = product.name.substring(0,18);
+    else
+      name = product.name;
     return GestureDetector(
       onTap: press,
       child: Stack(
         children: [
           Container(
-            width: 160,
+            width: 180,
             margin: const EdgeInsets.only(left: 5, right: 5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -59,8 +64,7 @@ class ItemCard extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 4),
-                        child: Text(
-                          '${product.name}',
+                        child: Text('$name',
                           style: const TextStyle(
                             fontSize: 16,
                             color: kTextColor,
@@ -87,7 +91,7 @@ class ItemCard extends StatelessWidget {
                     var id = product.id;
                     var name = product.name;
                     app.add_item(
-                        id, name, product.img, 1, product.price, context);
+                        id, name, product.img,  product.price,1, context);
                   },
                   width: 0.4,
                   hight: 30,

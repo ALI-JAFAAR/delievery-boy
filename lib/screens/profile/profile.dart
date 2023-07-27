@@ -3,11 +3,14 @@
 import 'package:alamal_center/screens/profile/profileupdate.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 // import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 // import '../../provider/app.dart';
+import '../../provider/app.dart';
 import '../../utiles/profilemenu.dart';
+import '../login/login.dart';
 // import '../login/login.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -20,7 +23,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    // var user = Provider.of<AppProvider>(context);
+    var user = Provider.of<AppProvider>(context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -31,25 +34,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         body:
-            // user.login == false
-            //     ? Center(
-            //         child: TextButton(
-            //           onPressed: () {
-            //             Navigator.push(
-            //               context,
-            //               MaterialPageRoute(builder: (context) => Login()),
-            //             );
-            //           },
-            //           child: Text(
-            //             "رجاء قم بتسجيل الدخول او انشاء حساب",
-            //             style: TextStyle(
-            //               fontSize: 18,
-            //               fontWeight: FontWeight.bold,
-            //             ),
-            //           ),
-            //         ),
-            //       )
-            //     :
+            user.login == false
+                ? Center(
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                        );
+                      },
+                      child: Text(
+                        "رجاء قم بتسجيل الدخول او انشاء حساب",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  )
+                :
             SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(20),
@@ -87,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const SizedBox(height: 10),
                 Text('اسم المستخدم',
                     style: Theme.of(context).textTheme.headline4),
-                Text('علي جعفر صادق',
+                Text('${user.userdata.name}',
                     style: Theme.of(context).textTheme.bodyText2),
                 const SizedBox(height: 20),
 
@@ -121,20 +124,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                 /// -- MENU
                 ProfileMenuWidget(
-                  title: "الاعدادات",
-                  icon: LineAwesomeIcons.cog,
+                  title: "${user.userdata.phone}",
+                  icon: LineAwesomeIcons.phone,
+                  endIcon: false,
                   onPress: () {},
                 ),
                 ProfileMenuWidget(
-                  title: "معلومات الدفع",
-                  icon: LineAwesomeIcons.wallet,
+                  title: "العنوان : ${user.userdata.address}",
+                  icon: LineAwesomeIcons.city,
+                  endIcon: false,
                   onPress: () {},
                 ),
+                
                 const Divider(),
                 const SizedBox(height: 10),
                 ProfileMenuWidget(
-                  title: "المعلومات",
-                  icon: LineAwesomeIcons.info,
+                  title: "معلومات الدفع",
+                  icon: LineAwesomeIcons.wallet,
                   onPress: () {},
                 ),
                 ProfileMenuWidget(

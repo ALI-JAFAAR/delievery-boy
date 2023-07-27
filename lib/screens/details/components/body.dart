@@ -3,7 +3,6 @@ import '/constants.dart';
 import '/models/Product.dart';
 
 import 'add_to_cart.dart';
-import 'counter_with_fav_btn.dart';
 import 'description.dart';
 import 'product_title_with_image.dart';
 
@@ -42,8 +41,7 @@ class Body extends StatelessWidget {
                       SizedBox(height: kDefaultPaddin / 2),
                       Description(product: product),
                       SizedBox(height: kDefaultPaddin / 2),
-                      CounterWithFavBtn(),
-                      SizedBox(height: 30),
+                      
                       AddToCart(product: product)
                     ],
                   ),

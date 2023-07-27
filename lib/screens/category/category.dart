@@ -22,32 +22,36 @@ class CategoryScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-
               Categories(),
-              
-              app.prodwa==false? Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
-                  child: GridView.builder(
-                      itemCount: app.prodC,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: kDefaultPaddin,
-                        crossAxisSpacing: kDefaultPaddin,
-                        childAspectRatio: 0.8,
-                      ),
-                      itemBuilder: (context, i) => ItemCard(
-                            product: app.prods[i],
-                            press: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => DetailsScreen(
-                                    product: app.prods[i],
-                                  ),
+              app.prodwa == false
+                  ? Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: kDefaultPaddin),
+                        child: GridView.builder(
+                            itemCount: app.prodC,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: kDefaultPaddin,
+                              crossAxisSpacing: kDefaultPaddin,
+                              childAspectRatio: 0.8,
+                            ),
+                            itemBuilder: (context, i) => ItemCard(
+                                  product: app.prods[i],
+                                  press: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => DetailsScreen(
+                                          product: app.prods[i],
+                                        ),
+                                      )),
                                 )),
-                          )),
-                ),
-              ):Text(''),
+                      ),
+                    )
+                  : CircularProgressIndicator(
+                      color: kPrimarycolor,
+                    ),
             ],
           ),
         ),

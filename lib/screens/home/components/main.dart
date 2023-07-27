@@ -24,26 +24,11 @@ class MainScreen extends StatelessWidget {
           child: AppBar(
             elevation: 1,
             backgroundColor: Theme.of(context).primaryColor,
-            // leading: Container(
-            //   margin: EdgeInsets.only(right: 2),
-            //   child: 
-            // ),
-            title: Row(
-              children: [
-                
-                Text(
-                  "سنتر الساعه",
-                  style: TextStyle(
-                    fontSize: 24,
-                  ),
-                ),
-                Image.asset(
-                'assets/images/title.png',
-                height: 50,
-                width: 60,
+            title: Image.asset(
+            'assets/images/titles.png',
+            height: 30,
+            
               ),
-              ],
-            ),
             centerTitle: true,
             actions: <Widget>[
               IconButton(

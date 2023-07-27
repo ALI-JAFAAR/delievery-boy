@@ -9,7 +9,22 @@ class LocationCard extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(50),
       child: Container(
-        color: Colors.white,
+        // width: MediaQuery.of(context).size.width -50,
+        // height: 72,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.amber,
+              blurRadius: 50.0,
+              spreadRadius: 50,
+              offset: Offset(
+                -1160,
+                -1160,
+              ),
+            ),
+          ],
+        ),
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Row(

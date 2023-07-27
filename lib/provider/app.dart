@@ -79,29 +79,27 @@ class AppProvider extends ChangeNotifier {
 
 
   //################ Products ##########
-  int page_id = 0;
+  int cat_id = 0;
   int prodC = 0;
   bool prodwa = true;
   var prods;
 
   prod_by_cat(id) async {
-    print('sdadjnoinio');
-    if (page_id == id  ) {
+    if (cat_id == id  ) {
     } else {
-      prodwa = !prodwa;
+      prodwa = false;
       final response = await api.getData('prod-cat/$id');
       notifyListeners();
       if (response.statusCode == 200) {
         var datas = json.decode(response.body);
         if (datas["success"] == true) {
           var prodss = productsFromJson(response.body);
-          print(
-              "Prod by Page fethed successfully and count of them = ${prodss.data.length}");
+          print("Prod by cat fethed successfully and count of them = ${prodss.data.length}");
           prodC = prodss.data.length;
           prods = prodss.data;
           print(prods[0].name);
           prodwa = false;
-          page_id = id;
+          cat_id = id;
           notifyListeners();
         } else {
           print("error fitching  Product");
@@ -182,6 +180,7 @@ class AppProvider extends ChangeNotifier {
         localStorage.setInt('id', userdata.id);
         localStorage.setString('name', userdata.name);
         localStorage.setString('phone', userdata.phone);
+        localStorage.setString('address', userdata.address);
         snackbar(context, "مرحبا بك ${userdata.name}");
         login = true;
         notifyListeners();
@@ -208,6 +207,7 @@ class AppProvider extends ChangeNotifier {
           name: localStorage.getString('name'),
           id: localStorage.getInt('id'),
           phone: localStorage.getString('phone'),
+          address: localStorage.getString('address'),
         );
         userdata = da;
         login = true;
@@ -260,10 +260,14 @@ class AppProvider extends ChangeNotifier {
     cartitem.removeAt(index);
     notifyListeners();
   }
+  qty_update(index,qty) {
+    cartitem[index].qty = qty;
+    notifyListeners();
+  }
   int total_price() {
     int sum = 0;
     for (int i = 0; i < cartitem.length; i++) {
-      sum += cartitem[i].price;
+      sum += cartitem[i].price * cartitem[i].qty;
     }
     return sum;
   }
