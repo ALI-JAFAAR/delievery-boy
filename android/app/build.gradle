@@ -44,7 +44,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.ALi_Jaafar95.alamal_center"
+        applicationId "com.ALi_Jaafar95.delievery_boy_almawaddah"
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()

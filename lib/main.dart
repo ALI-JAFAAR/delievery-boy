@@ -27,11 +27,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'سنتر الساعه',
       theme: ThemeData(
         primaryColor: kPrimarycolor,
         textTheme: GoogleFonts.cairoTextTheme(),
-        
       ),
       home: HomeScreen(),
     );

@@ -4,17 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/api.dart';
-import '../models/Product.dart';
-import '../models/cart.dart';
-import '../models/cat.dart';
 import '../models/cus.dart';
-import '../models/slider.dart';
 import '../screens/home/home_screen.dart';
 
 class AppProvider extends ChangeNotifier {
   Api api = Api();
   late SnackBar snackBar;
-  List<CartItem> cartitem = [];
   bool login = false;
   var userdata;
   // serch var
@@ -23,90 +18,6 @@ class AppProvider extends ChangeNotifier {
   var searchitem;
 
 
-
-  //################ Slider ##########
-  int slidercount = 0;
-  bool sliderwaiting = true;
-  var sliders;
-  slider() async {
-    if (sliderwaiting == false) {
-    } else {
-      final response = await api.getData('slider');
-      if (response.statusCode == 200) {
-        var datas = json.decode(response.body);
-        sliderwaiting = false;
-        if (datas["success"] == true) {
-          var slidesdata = sliderFromJson(response.body);
-          print(
-              "slides fethed successfully and count of them = ${slidesdata.data.length}");
-          slidercount = slidesdata.data.length;
-          
-          sliders = slidesdata.data;
-
-          notifyListeners();
-        } else {
-          print("error fitching  slides");
-        }
-      }
-    }
-  }
-
-  int catAcount = 0;
-  bool catAwaiting = true;
-  var catA;
-  category_all() async {
-    if ( catAwaiting == false) {
-    } else {
-      catAwaiting = true;
-      final response = await api.getData('cats');
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        var datas = json.decode(response.body);
-        if (datas["success"] == true) {
-          var cat = categoryFromJson(response.body);
-          print("CATS fethed successfully and count of them = ${cat.data.length}");
-          catAcount = cat.data.length;
-          catAwaiting = false;
-          catA = cat.data;
-          notifyListeners();
-        } else {
-          print("error fitching  cats");
-        }
-      }
-    }
-  }
-
-
-
-  //################ Products ##########
-  int cat_id = 0;
-  int prodC = 0;
-  bool prodwa = true;
-  var prods;
-
-  prod_by_cat(id) async {
-    if (cat_id == id  ) {
-    } else {
-      prodwa = false;
-      final response = await api.getData('prod-cat/$id');
-      notifyListeners();
-      if (response.statusCode == 200) {
-        var datas = json.decode(response.body);
-        if (datas["success"] == true) {
-          var prodss = productsFromJson(response.body);
-          print("Prod by cat fethed successfully and count of them = ${prodss.data.length}");
-          prodC = prodss.data.length;
-          prods = prodss.data;
-          print(prods[0].name);
-          prodwa = false;
-          cat_id = id;
-          notifyListeners();
-        } else {
-          print("error fitching  Product");
-        }
-      }
-    }
-  }
 
 
 
@@ -229,48 +140,6 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void add_item(ids, name, img, price,qty, context) {
-    CartItem item = CartItem(
-        id: ids.toString(),
-        name: name.toString(),
-        price: price,
-        img: img.toString(),
-        qty: qty
-        );
-
-    for (int i = 0; i < cartitem.length; i++) {
-      if (cartitem[i].id == item.id ) {
-        print("old = ${cartitem[i].id}   new = ${item.id}");
-        snackbar(context, "هذا المنتج تم اضافتة الى العربة مسبقا");
-        return;
-      }
-
-      if ( cartitem[i].id == item.id) {
-        snackbar(context, "تم تحديث الكمية المطلوبه من المنتج");
-        notifyListeners();
-        return;
-      }
-    }
-    cartitem.add(item);
-    snackbar(context, "تم اضافة المنتج الى العربة");
-    notifyListeners();
-  }
-
-  remove_item(index) {
-    cartitem.removeAt(index);
-    notifyListeners();
-  }
-  qty_update(index,qty) {
-    cartitem[index].qty = qty;
-    notifyListeners();
-  }
-  int total_price() {
-    int sum = 0;
-    for (int i = 0; i < cartitem.length; i++) {
-      sum += cartitem[i].price * cartitem[i].qty;
-    }
-    return sum;
-  }
 
   del_account(context,id) async {
 
@@ -287,40 +156,6 @@ class AppProvider extends ChangeNotifier {
           print("error delet account");
         }
       }
-  }
-
-  search_reset(){
-    searchwaiting = true;
-    notifyListeners();
-  }
-
-  void send_order(name,phone, total, address, id, context) async {
-    var data = {
-      "cus_name": name,
-      "cus_id": id,
-      "phone": phone,
-      "total": total,
-      "address": address,
-      "items": cartitem
-    };
-
-    print(data);
-    final response = await api.postData(data, 'order');
-    if (response.statusCode == 200) {
-      print(response.body);
-      if (response.body == "product saved") {
-        snackbar(context,
-            "تم ارسال الطلب بنجاح  سوف نقوم بالتواصل معك على رقم هاتفك الشخصي");
-        cartitem.clear();
-        notifyListeners();
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) =>  HomeScreen()),
-        );
-      }
-    } else {
-      print(response.statusCode);
-    }
   }
 
   void snackbar(context, String text) {
