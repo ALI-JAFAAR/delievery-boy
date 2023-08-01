@@ -1,6 +1,6 @@
 # alamal_center
 
-A new Flutter project.
+Delivery Boy app made with flutter bu ALI-JAAFAR 
 
 ## Getting Started
 
