@@ -1,12 +1,10 @@
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '/provider/app.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'constants.dart';
 import 'screens/home/home_screen.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
@@ -25,11 +23,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: kPrimarycolor,
-        textTheme: GoogleFonts.cairoTextTheme(),
+        textTheme: GoogleFonts.tajawalTextTheme(),
       ),
       home: HomeScreen(),
     );
