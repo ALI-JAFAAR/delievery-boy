@@ -1,6 +1,6 @@
 # alamal_center
 
-Delivery Boy app made with flutter bu ALI-JAAFAR 
+Delivery Boy app made with flutter by ALI-JAAFAR 
 
 ## Getting Started
 
